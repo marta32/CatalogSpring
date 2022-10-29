@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
@@ -14,15 +14,19 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "subjects")
-public class Subject {
+@Table(name = "grades")
+public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id",nullable = false)
+    private Student student;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subject_id",nullable = false)
+    private Subject subject;
     @Column(nullable = false)
-    private String name;
+    private Integer mark;
     @Column(nullable = false)
-    private Integer idTeacher;
-    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Grade> grades = new HashSet<>();
+    private LocalDate dateMark;
 }
