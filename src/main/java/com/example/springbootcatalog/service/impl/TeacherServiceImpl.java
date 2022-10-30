@@ -6,7 +6,6 @@ import com.example.springbootcatalog.service.TeacherService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -24,8 +23,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public List<Teacher> getAllTeachers() {
-//        return teacherRepository.findAll();
-        return null;
+        return teacherRepository.findAll();
     }
 
     @Override
