@@ -36,6 +36,10 @@ public class TeacherController {
     public Teacher updateTeacher(@RequestBody Teacher teacher, @PathVariable(name = "id") Integer id) {
         return teacherService.updateTeacher(teacher,id);
     }
-
+    @DeleteMapping("/{id}")
+    public String deleteTeacher(@PathVariable(name = "id") Integer id){
+        teacherService.deleteTeacherById(id);
+        return "Teacher entity deleted successfully.";
+    }
 
 }
