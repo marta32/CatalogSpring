@@ -1,0 +1,53 @@
+[33mcommit e6b4f9cb0debcf45b48d2a139e23e1c065252720[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Marta Enachioiu <marta.enachioiu@gmail.com>
+Date:   Sat Oct 29 22:35:58 2022 +0300
+
+     Create a Teacher REST API
+
+[33mcommit 661f01f11e51ed2f74b6b5da1de0994a2fd2178a[m
+Author: Marta Enachioiu <marta.enachioiu@gmail.com>
+Date:   Sat Oct 29 20:28:45 2022 +0300
+
+    Create GradeRepository
+
+[33mcommit 4bdaf2b619ffdd7b10c855d27cc51bc6df75768f[m
+Author: Marta Enachioiu <marta.enachioiu@gmail.com>
+Date:   Sat Oct 29 20:23:43 2022 +0300
+
+    Create SubjectRepository
+
+[33mcommit 99c7d32800f8d74c7ef9e4a544fedd01555db144[m
+Author: Marta Enachioiu <marta.enachioiu@gmail.com>
+Date:   Sat Oct 29 20:20:52 2022 +0300
+
+    Create StudentRepository
+
+[33mcommit 87663683429bfc39cca1d8cd5d7795043952ba2c[m
+Author: Marta Enachioiu <marta.enachioiu@gmail.com>
+Date:   Sat Oct 29 18:28:30 2022 +0300
+
+    Create One-to-Many relationship between Student and Grade entities and between Subject and Grade entities
+
+[33mcommit c01405ac1517ac3c1fa7a7ddcabe3f82a771e11f[m
+Author: Marta Enachioiu <marta.enachioiu@gmail.com>
+Date:   Sat Oct 29 18:00:39 2022 +0300
+
+    Create Many-to-Many relationship between Teacher and Subject entities
+
+[33mcommit 64c6a9deb719791f1ea88be6256ece69bc554732[m
+Author: Marta Enachioiu <marta.enachioiu@gmail.com>
+Date:   Sat Oct 29 17:41:48 2022 +0300
+
+    Create Subject Entity
+
+[33mcommit 365e0a5c9ff58ac07abfcaa8b17e0d3a689bfbb7[m
+Author: Marta Enachioiu <marta.enachioiu@gmail.com>
+Date:   Sat Oct 29 17:38:43 2022 +0300
+
+    Create Student Entity
+
+[33mcommit 90538edb4c4c48bcac11b587ceee359031a31444[m
+Author: Marta Enachioiu <marta.enachioiu@gmail.com>
+Date:   Sat Oct 29 16:58:48 2022 +0300
+
+    first commit
