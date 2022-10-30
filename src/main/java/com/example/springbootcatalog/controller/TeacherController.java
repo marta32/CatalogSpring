@@ -27,5 +27,15 @@ public class TeacherController {
         return teacherService.getAllTeachers();
     }
 
+    @GetMapping("/{id}")
+    public Teacher getTeacherById(@PathVariable(name = "id") Integer id) {
+        return teacherService.getTeacherById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Teacher updateTeacher(@RequestBody Teacher teacher, @PathVariable(name = "id") Integer id) {
+        return teacherService.updateTeacher(teacher,id);
+    }
+
 
 }

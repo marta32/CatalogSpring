@@ -28,12 +28,17 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public Teacher getTeacherById(Integer id) {
-        return null;
+        return  teacherRepository.findById(id).orElseThrow(null);
     }
 
     @Override
-    public Teacher updateTeacher(Teacher teacher) {
-        return null;
+    public Teacher updateTeacher(Teacher teacher,Integer id) {
+        Teacher newTeacher = teacherRepository.findById(id).orElseThrow(null);
+        newTeacher.setFirst_name(teacher.getFirst_name());
+        newTeacher.setLast_name(teacher.getLast_name());
+        newTeacher.setBirthday(teacher.getBirthday());
+        Teacher updateTeacher = teacherRepository.save(newTeacher);
+        return updateTeacher;
     }
 
     @Override
