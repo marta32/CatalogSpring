@@ -1,4 +1,4 @@
-package payload;
+package com.example.springbootcatalog.payload;
 
 import com.example.springbootcatalog.entity.Grade;
 import lombok.Data;

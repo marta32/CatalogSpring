@@ -1,4 +1,4 @@
-package payload;
+package com.example.springbootcatalog.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

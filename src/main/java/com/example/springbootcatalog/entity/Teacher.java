@@ -27,7 +27,7 @@ public class Teacher {
     private LocalDate birthday;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "teacher_subject", joinColumns = @JoinColumn(name = "teacher_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id"))
+    @JoinTable(name = "teacher_subject", joinColumns = @JoinColumn(name = "teacherId", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "subjectId", referencedColumnName = "id"))
     private Set<Subject> subjectSet;
 }

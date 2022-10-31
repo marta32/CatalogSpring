@@ -1,14 +1,14 @@
 package com.example.springbootcatalog.controller;
 
-import com.example.springbootcatalog.entity.Teacher;
 import com.example.springbootcatalog.service.TeacherService;
+import com.example.springbootcatalog.utils.AppConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import payload.TeacherDto;
+import com.example.springbootcatalog.payload.TeacherDto;
+import com.example.springbootcatalog.payload.TeacherResponse;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/teachers")
@@ -25,8 +25,12 @@ public class TeacherController {
     }
 
     @GetMapping
-    public List<Teacher> getAllTeachers() {
-        return teacherService.getAllTeachers();
+    public TeacherResponse getAllTeachers(@RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+                                          @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+                                          @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+                                          @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
+    ) {
+        return teacherService.getAllTeachers(pageNo,pageSize,sortBy,sortDir);
     }
 
     @GetMapping("/{id}")
@@ -35,7 +39,7 @@ public class TeacherController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TeacherDto> updateTeacher(@RequestBody TeacherDto teacherDto, @PathVariable(name = "id") Integer id) {
+    public ResponseEntity<TeacherDto> updateTeacher(@Valid @RequestBody TeacherDto teacherDto, @PathVariable(name = "id") Integer id) {
         TeacherDto teacherResponse = teacherService.updateTeacher(teacherDto, id);
         return new ResponseEntity<>(teacherResponse, HttpStatus.OK);
     }

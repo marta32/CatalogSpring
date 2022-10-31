@@ -1,10 +1,9 @@
-package payload;
+package com.example.springbootcatalog.payload;
 
 import com.example.springbootcatalog.entity.Student;
 import com.example.springbootcatalog.entity.Subject;
 import lombok.Data;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
@@ -17,6 +16,5 @@ public class GradeDto {
     private Subject subject;
     @NotEmpty(message = "Mark is missing")
     private Integer mark;
-    @NotEmpty(message = "Date should not be empty")
     private LocalDate dateMark;
 }
