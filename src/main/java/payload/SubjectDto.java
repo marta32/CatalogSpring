@@ -1,8 +1,10 @@
 package payload;
 
+import com.example.springbootcatalog.entity.Grade;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.Set;
 
 @Data
 public class SubjectDto {
@@ -11,4 +13,5 @@ public class SubjectDto {
     private String name;
     @NotEmpty(message = "Teacher's id should not be empty")
     private Integer teacherId;
+    private Set<Grade> grades;
 }

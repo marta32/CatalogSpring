@@ -2,7 +2,6 @@ package payload;
 
 import com.example.springbootcatalog.entity.Subject;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
