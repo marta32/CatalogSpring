@@ -74,4 +74,11 @@ public class StudentServiceImpl implements StudentService {
         return mapper.map(updateStudent, StudentDto.class);
     }
 
+    @Override
+    public void deleteStudentById(Integer id) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Student", "id", id));
+        studentRepository.delete(student);
+    }
+
 }

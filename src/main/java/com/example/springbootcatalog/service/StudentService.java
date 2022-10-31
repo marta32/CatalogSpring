@@ -9,4 +9,5 @@ public interface StudentService {
     ObjectResponse<StudentDto> getAllStudents(int pageNo, int pageSize, String sortBy, String sortDir);
     StudentDto getStudentById(Integer id);
     StudentDto updateStudent(StudentDto studentDto, Integer id);
+    void deleteStudentById(Integer id);
 }
