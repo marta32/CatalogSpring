@@ -1,10 +1,12 @@
 package payload;
 
+import com.example.springbootcatalog.entity.Subject;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 public class TeacherDto {
@@ -15,4 +17,5 @@ public class TeacherDto {
     private String lastName;
     @NotEmpty(message = "Date of birth should not be empty")
     private LocalDate birthday;
+    private Set<Subject> subjects;
 }

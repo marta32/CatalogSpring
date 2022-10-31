@@ -14,5 +14,4 @@ public class StudentDto {
     private String lastName;
     @NotEmpty(message = "Date of birth should not be empty")
     private LocalDate birthday;
-
 }
