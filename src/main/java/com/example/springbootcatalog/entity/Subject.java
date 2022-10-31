@@ -22,7 +22,7 @@ public class Subject {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
-    private Integer idTeacher;
+    private Integer teacherId;
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Grade> grades = new HashSet<>();
 }

@@ -15,8 +15,6 @@ public class TeacherController {
         this.teacherService = teacherService;
     }
 
-    // create a teacher rest api
-
     @PostMapping
     public Teacher createTeacher(@RequestBody Teacher teacher) {
         return teacherService.createTeacher(teacher);
@@ -34,12 +32,12 @@ public class TeacherController {
 
     @PutMapping("/{id}")
     public Teacher updateTeacher(@RequestBody Teacher teacher, @PathVariable(name = "id") Integer id) {
-        return teacherService.updateTeacher(teacher,id);
+        return teacherService.updateTeacher(teacher, id);
     }
+
     @DeleteMapping("/{id}")
-    public String deleteTeacher(@PathVariable(name = "id") Integer id){
+    public String deleteTeacher(@PathVariable(name = "id") Integer id) {
         teacherService.deleteTeacherById(id);
         return "Teacher entity deleted successfully.";
     }
-
 }

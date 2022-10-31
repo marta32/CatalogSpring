@@ -34,8 +34,8 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Teacher updateTeacher(Teacher teacher,Integer id) {
         Teacher newTeacher = teacherRepository.findById(id).orElseThrow(null);
-        newTeacher.setFirst_name(teacher.getFirst_name());
-        newTeacher.setLast_name(teacher.getLast_name());
+        newTeacher.setFirstName(teacher.getFirstName());
+        newTeacher.setLastName(teacher.getLastName());
         newTeacher.setBirthday(teacher.getBirthday());
         Teacher updateTeacher = teacherRepository.save(newTeacher);
         return updateTeacher;

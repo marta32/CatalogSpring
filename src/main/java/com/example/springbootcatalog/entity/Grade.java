@@ -20,10 +20,10 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id",nullable = false)
+    @JoinColumn(name = "studentId",nullable = false)
     private Student student;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subject_id",nullable = false)
+    @JoinColumn(name = "subjectId",nullable = false)
     private Subject subject;
     @Column(nullable = false)
     private Integer mark;

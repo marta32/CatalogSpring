@@ -20,9 +20,9 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(nullable = false)
-    private String first_name;
+    private String firstName;
     @Column(nullable = false)
-    private String last_name;
+    private String lastName;
     @Column(nullable = false)
     private LocalDate birthday;
 
