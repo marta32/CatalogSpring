@@ -25,17 +25,24 @@ public class StudentController {
     }
 
     @GetMapping
-    public ObjectResponse<StudentDto> getAllStudents(@RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
-                                                     @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
-                                                     @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
-                                                     @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
+    public ObjectResponse<StudentDto> getAllStudents(
+            @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
     ) {
         return studentService.getAllStudents(pageNo, pageSize, sortBy, sortDir);
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<StudentDto> getStudentById(@PathVariable(name = "id") Integer id) {
         return ResponseEntity.ok(studentService.getStudentById(id));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<StudentDto> updateStudent(@Valid @RequestBody StudentDto studentDto,
+                                                    @PathVariable(name = "id") Integer id) {
+        StudentDto studentResponse = studentService.updateStudent(studentDto, id);
+        return new ResponseEntity<>(studentResponse, HttpStatus.OK);
+    }
 }
