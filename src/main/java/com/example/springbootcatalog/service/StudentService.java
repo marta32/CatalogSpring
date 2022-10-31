@@ -7,4 +7,5 @@ public interface StudentService {
 
     StudentDto createStudent(StudentDto studentDto);
     ObjectResponse<StudentDto> getAllStudents(int pageNo, int pageSize, String sortBy, String sortDir);
+    StudentDto getStudentById(Integer id);
 }

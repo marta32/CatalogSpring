@@ -1,6 +1,7 @@
 package com.example.springbootcatalog.service.impl;
 
 import com.example.springbootcatalog.entity.Student;
+import com.example.springbootcatalog.exception.ResourceNotFoundException;
 import com.example.springbootcatalog.payload.ObjectResponse;
 import com.example.springbootcatalog.payload.StudentDto;
 import com.example.springbootcatalog.repository.StudentRepository;
@@ -55,5 +56,11 @@ public class StudentServiceImpl implements StudentService {
         return studentResponse;
     }
 
+    @Override
+    public StudentDto getStudentById(Integer id) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Student", "id", id));
+        return mapper.map(student, StudentDto.class);
+    }
 
 }

@@ -32,5 +32,10 @@ public class StudentController {
     ) {
         return studentService.getAllStudents(pageNo, pageSize, sortBy, sortDir);
     }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentDto> getStudentById(@PathVariable(name = "id") Integer id) {
+        return ResponseEntity.ok(studentService.getStudentById(id));
+    }
 
 }

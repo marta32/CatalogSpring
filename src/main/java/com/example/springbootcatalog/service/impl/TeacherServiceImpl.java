@@ -58,14 +58,16 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public TeacherDto getTeacherById(Integer id) {
-        Teacher teacher = teacherRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Teacher","id",id));
+        Teacher teacher = teacherRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Teacher","id",id));
         return mapper.map(teacher, TeacherDto.class);
 
     }
 
     @Override
     public TeacherDto updateTeacher(TeacherDto teacherDto, Integer id) {
-        Teacher teacher = teacherRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Teacher","id",id));
+        Teacher teacher = teacherRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Teacher","id",id));
         teacher.setFirstName(teacherDto.getFirstName());
         teacher.setLastName(teacherDto.getLastName());
         teacher.setBirthday(teacherDto.getBirthday());
@@ -75,7 +77,8 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public void deleteTeacherById(Integer id) {
-        Teacher teacher = teacherRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Teacher","id",id));
+        Teacher teacher = teacherRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Teacher","id",id));
         teacherRepository.delete(teacher);
     }
 }
