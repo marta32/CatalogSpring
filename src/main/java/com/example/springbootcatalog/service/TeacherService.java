@@ -1,9 +1,7 @@
 package com.example.springbootcatalog.service;
 
-import com.example.springbootcatalog.entity.Teacher;
 import com.example.springbootcatalog.payload.ObjectResponse;
 import com.example.springbootcatalog.payload.TeacherDto;
-import com.example.springbootcatalog.payload.ObjectResponse;
 
 public interface TeacherService {
 
@@ -16,4 +14,5 @@ public interface TeacherService {
     TeacherDto updateTeacher(TeacherDto teacherDto, Integer id);
 
     void deleteTeacherById(Integer id);
+    
 }
