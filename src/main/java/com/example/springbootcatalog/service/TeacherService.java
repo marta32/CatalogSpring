@@ -1,13 +1,15 @@
 package com.example.springbootcatalog.service;
 
+import com.example.springbootcatalog.entity.Teacher;
+import com.example.springbootcatalog.payload.ObjectResponse;
 import com.example.springbootcatalog.payload.TeacherDto;
-import com.example.springbootcatalog.payload.TeacherResponse;
+import com.example.springbootcatalog.payload.ObjectResponse;
 
 public interface TeacherService {
 
     TeacherDto createTeacher(TeacherDto teacherDto);
 
-    TeacherResponse getAllTeachers(int pageNo, int pageSize, String sortBy,String sortDir);
+    ObjectResponse<TeacherDto> getAllTeachers(int pageNo, int pageSize, String sortBy, String sortDir);
 
     TeacherDto getTeacherById(Integer id);
 

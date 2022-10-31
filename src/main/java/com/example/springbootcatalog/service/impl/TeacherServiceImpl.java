@@ -2,7 +2,7 @@ package com.example.springbootcatalog.service.impl;
 
 import com.example.springbootcatalog.entity.Teacher;
 import com.example.springbootcatalog.exception.ResourceNotFoundException;
-import com.example.springbootcatalog.payload.TeacherResponse;
+import com.example.springbootcatalog.payload.ObjectResponse;
 import com.example.springbootcatalog.repository.TeacherRepository;
 import com.example.springbootcatalog.service.TeacherService;
 import org.modelmapper.ModelMapper;
@@ -35,7 +35,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public TeacherResponse getAllTeachers(int pageNo, int pageSize, String sortBy,String sortDir) {
+    public ObjectResponse<TeacherDto> getAllTeachers(int pageNo, int pageSize, String sortBy, String sortDir) {
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
 
@@ -45,7 +45,7 @@ public class TeacherServiceImpl implements TeacherService {
         List<TeacherDto> content = listOfTeachers.stream()
                 .map(teacher -> mapper.map(teacher,TeacherDto.class)).collect(Collectors.toList());
 
-        TeacherResponse teacherResponse = new TeacherResponse();
+        ObjectResponse<TeacherDto> teacherResponse = new ObjectResponse<TeacherDto>();
         teacherResponse.setContent(content);
         teacherResponse.setPageNo(teachers.getNumber());
         teacherResponse.setPageSize(teachers.getSize());

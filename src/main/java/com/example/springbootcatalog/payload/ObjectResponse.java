@@ -9,8 +9,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TeacherResponse {
-    private List<TeacherDto> content;
+public class ObjectResponse<T> {
+    private List<T> content;
     private int pageNo;
     private int pageSize;
     private long totalElements;

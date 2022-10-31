@@ -1,12 +1,12 @@
 package com.example.springbootcatalog.controller;
 
+import com.example.springbootcatalog.payload.ObjectResponse;
 import com.example.springbootcatalog.service.TeacherService;
 import com.example.springbootcatalog.utils.AppConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.springbootcatalog.payload.TeacherDto;
-import com.example.springbootcatalog.payload.TeacherResponse;
 
 import javax.validation.Valid;
 
@@ -25,10 +25,10 @@ public class TeacherController {
     }
 
     @GetMapping
-    public TeacherResponse getAllTeachers(@RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
-                                          @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
-                                          @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
-                                          @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
+    public ObjectResponse<TeacherDto> getAllTeachers(@RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+                                                  @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+                                                  @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+                                                  @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
     ) {
         return teacherService.getAllTeachers(pageNo,pageSize,sortBy,sortDir);
     }
