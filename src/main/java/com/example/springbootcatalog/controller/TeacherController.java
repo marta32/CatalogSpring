@@ -2,8 +2,12 @@ package com.example.springbootcatalog.controller;
 
 import com.example.springbootcatalog.entity.Teacher;
 import com.example.springbootcatalog.service.TeacherService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import payload.TeacherDto;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,8 +20,8 @@ public class TeacherController {
     }
 
     @PostMapping
-    public Teacher createTeacher(@RequestBody Teacher teacher) {
-        return teacherService.createTeacher(teacher);
+    public ResponseEntity<TeacherDto> createTeacher(@Valid @RequestBody TeacherDto teacherDto) {
+        return new ResponseEntity<>(teacherService.createTeacher(teacherDto), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -26,18 +30,19 @@ public class TeacherController {
     }
 
     @GetMapping("/{id}")
-    public Teacher getTeacherById(@PathVariable(name = "id") Integer id) {
-        return teacherService.getTeacherById(id);
+    public ResponseEntity<TeacherDto> getTeacherById(@PathVariable(name = "id") Integer id) {
+        return ResponseEntity.ok(teacherService.getTeacherById(id));
     }
 
     @PutMapping("/{id}")
-    public Teacher updateTeacher(@RequestBody Teacher teacher, @PathVariable(name = "id") Integer id) {
-        return teacherService.updateTeacher(teacher, id);
+    public ResponseEntity<TeacherDto> updateTeacher(@RequestBody TeacherDto teacherDto, @PathVariable(name = "id") Integer id) {
+        TeacherDto teacherResponse = teacherService.updateTeacher(teacherDto, id);
+        return new ResponseEntity<>(teacherResponse, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteTeacher(@PathVariable(name = "id") Integer id) {
+    public ResponseEntity<String> deleteTeacher(@PathVariable(name = "id") Integer id) {
         teacherService.deleteTeacherById(id);
-        return "Teacher entity deleted successfully.";
+        return new ResponseEntity<>("Teacher entity deleted successfully.", HttpStatus.OK);
     }
 }

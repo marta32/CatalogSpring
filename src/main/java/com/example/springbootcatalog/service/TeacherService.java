@@ -1,18 +1,19 @@
 package com.example.springbootcatalog.service;
 
 import com.example.springbootcatalog.entity.Teacher;
+import payload.TeacherDto;
 
 import java.util.List;
 
 public interface TeacherService {
 
-    Teacher createTeacher(Teacher teacher);
+    TeacherDto createTeacher(TeacherDto teacherDto);
 
     List<Teacher> getAllTeachers();
 
-    Teacher getTeacherById(Integer id);
+    TeacherDto getTeacherById(Integer id);
 
-    Teacher updateTeacher(Teacher teacher, Integer id);
+    TeacherDto updateTeacher(TeacherDto teacherDto, Integer id);
 
     void deleteTeacherById(Integer id);
 
