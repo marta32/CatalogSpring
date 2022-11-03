@@ -67,9 +67,15 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto updateStudent(StudentDto studentDto, Integer id) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Student", "id", id));
-        student.setFirstName(studentDto.getFirstName());
-        student.setLastName(studentDto.getLastName());
-        student.setBirthday(studentDto.getBirthday());
+        if (studentDto.getFirstName() != null) {
+            student.setFirstName(studentDto.getFirstName());
+        }
+        if (studentDto.getLastName() != null) {
+            student.setLastName(studentDto.getLastName());
+        }
+        if (studentDto.getBirthday() != null) {
+            student.setBirthday(studentDto.getBirthday());
+        }
         Student updateStudent = studentRepository.save(student);
         return mapper.map(updateStudent, StudentDto.class);
     }

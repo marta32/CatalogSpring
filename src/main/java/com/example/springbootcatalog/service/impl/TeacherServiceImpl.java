@@ -2,12 +2,10 @@ package com.example.springbootcatalog.service.impl;
 
 import com.example.springbootcatalog.entity.Teacher;
 import com.example.springbootcatalog.exception.ResourceNotFoundException;
-//import com.example.springbootcatalog.mapper.Mapper;
 import com.example.springbootcatalog.mapper.TeacherMapper;
 import com.example.springbootcatalog.payload.ObjectResponse;
 import com.example.springbootcatalog.repository.TeacherRepository;
 import com.example.springbootcatalog.service.TeacherService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -72,8 +70,12 @@ public class TeacherServiceImpl implements TeacherService {
         if (teacherDto.getFirstName() != null) {
             teacher.setFirstName(teacherDto.getFirstName());
         }
-        teacher.setLastName(teacherDto.getLastName());
-        teacher.setBirthday(teacherDto.getBirthday());
+        if (teacherDto.getLastName() != null) {
+            teacher.setLastName(teacherDto.getLastName());
+        }
+        if (teacherDto.getBirthday() != null) {
+            teacher.setBirthday(teacherDto.getBirthday());
+        }
         Teacher updateTeacher = teacherRepository.save(teacher);
         return mapper.mapTeacherToTeacherDto(updateTeacher);
     }
