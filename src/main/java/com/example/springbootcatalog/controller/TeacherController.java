@@ -1,7 +1,6 @@
 package com.example.springbootcatalog.controller;
 
 import com.example.springbootcatalog.payload.ObjectResponse;
-import com.example.springbootcatalog.service.SubjectService;
 import com.example.springbootcatalog.service.TeacherService;
 import com.example.springbootcatalog.utils.AppConstants;
 import org.springframework.http.HttpStatus;

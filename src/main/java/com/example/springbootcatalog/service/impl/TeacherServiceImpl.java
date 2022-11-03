@@ -3,6 +3,7 @@ package com.example.springbootcatalog.service.impl;
 import com.example.springbootcatalog.entity.Teacher;
 import com.example.springbootcatalog.exception.ResourceNotFoundException;
 //import com.example.springbootcatalog.mapper.Mapper;
+import com.example.springbootcatalog.mapper.TeacherMapper;
 import com.example.springbootcatalog.payload.ObjectResponse;
 import com.example.springbootcatalog.repository.TeacherRepository;
 import com.example.springbootcatalog.service.TeacherService;
@@ -21,20 +22,18 @@ import java.util.stream.Collectors;
 public class TeacherServiceImpl implements TeacherService {
 
     private TeacherRepository teacherRepository;
-    private ModelMapper mapper;
+    private TeacherMapper mapper;
 
-    public TeacherServiceImpl(TeacherRepository teacherRepository, ModelMapper mapper) {
+    public TeacherServiceImpl(TeacherRepository teacherRepository, TeacherMapper mapper) {
         this.teacherRepository = teacherRepository;
         this.mapper = mapper;
     }
 
     @Override
     public TeacherDto createTeacher(TeacherDto teacherDto) {
-        Teacher teacher = mapper.map(teacherDto, Teacher.class);
-//        Teacher teacher = new Mapper().mapTeacherDtoToTeacher(teacherDto);
+        Teacher teacher = mapper.mapTeacherDtoToTeacher(teacherDto);
         teacherRepository.save(teacher);
-        return mapper.map(teacher, TeacherDto.class);
-//        return new Mapper().mapTeacherToTeacherDto(teacher);
+        return mapper.mapTeacherToTeacherDto(teacher);
     }
 
     @Override
@@ -46,7 +45,7 @@ public class TeacherServiceImpl implements TeacherService {
         Page<Teacher> teachers = teacherRepository.findAll(pageable);
         List<Teacher> listOfTeachers = teachers.getContent();
         List<TeacherDto> content = listOfTeachers.stream()
-                .map(teacher -> mapper.map(teacher, TeacherDto.class)).collect(Collectors.toList());
+                .map(teacher -> mapper.mapTeacherToTeacherDto(teacher)).collect(Collectors.toList());
 
         ObjectResponse<TeacherDto> teacherResponse = new ObjectResponse<TeacherDto>();
         teacherResponse.setContent(content);
@@ -63,20 +62,20 @@ public class TeacherServiceImpl implements TeacherService {
     public TeacherDto getTeacherById(Integer id) {
         Teacher teacher = teacherRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Teacher", "id", id));
-        return mapper.map(teacher, TeacherDto.class);
-//        return new Mapper().mapTeacherToTeacherDto(teacher);
+        return mapper.mapTeacherToTeacherDto(teacher);
     }
 
     @Override
     public TeacherDto updateTeacher(TeacherDto teacherDto, Integer id) {
         Teacher teacher = teacherRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Teacher", "id", id));
-        teacher.setFirstName(teacherDto.getFirstName());
+        if (teacherDto.getFirstName() != null) {
+            teacher.setFirstName(teacherDto.getFirstName());
+        }
         teacher.setLastName(teacherDto.getLastName());
         teacher.setBirthday(teacherDto.getBirthday());
         Teacher updateTeacher = teacherRepository.save(teacher);
-        return mapper.map(updateTeacher, TeacherDto.class);
-//        return new Mapper().mapTeacherToTeacherDto(updateTeacher);
+        return mapper.mapTeacherToTeacherDto(updateTeacher);
     }
 
     @Override
