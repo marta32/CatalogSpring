@@ -2,6 +2,7 @@ package com.example.springbootcatalog.service.impl;
 
 import com.example.springbootcatalog.entity.Student;
 import com.example.springbootcatalog.exception.ResourceNotFoundException;
+import com.example.springbootcatalog.mapper.StudentMapper;
 import com.example.springbootcatalog.payload.ObjectResponse;
 import com.example.springbootcatalog.payload.StudentDto;
 import com.example.springbootcatalog.repository.StudentRepository;
@@ -20,18 +21,18 @@ import java.util.stream.Collectors;
 public class StudentServiceImpl implements StudentService {
 
     private StudentRepository studentRepository;
-    private ModelMapper mapper;
+    private StudentMapper mapper;
 
-    public StudentServiceImpl(StudentRepository studentRepository, ModelMapper mapper) {
+    public StudentServiceImpl(StudentRepository studentRepository, StudentMapper mapper) {
         this.studentRepository = studentRepository;
         this.mapper = mapper;
     }
 
     @Override
     public StudentDto createStudent(StudentDto studentDto) {
-        Student student = mapper.map(studentDto, Student.class);
+        Student student = mapper.mapStudentDtoToStudent(studentDto);
         Student newStudent = studentRepository.save(student);
-        return mapper.map(newStudent, StudentDto.class);
+        return mapper.mapStudentToStudentDto(newStudent);
     }
 
     @Override
@@ -43,7 +44,7 @@ public class StudentServiceImpl implements StudentService {
         Page<Student> students = studentRepository.findAll(pageable);
         List<Student> listOfTeachers = students.getContent();
         List<StudentDto> content = listOfTeachers.stream()
-                .map(student -> mapper.map(student, StudentDto.class)).collect(Collectors.toList());
+                .map(student -> mapper.mapStudentToStudentDto(student)).collect(Collectors.toList());
 
         ObjectResponse<StudentDto> studentResponse = new ObjectResponse<StudentDto>();
         studentResponse.setContent(content);
@@ -60,7 +61,7 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto getStudentById(Integer id) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Student", "id", id));
-        return mapper.map(student, StudentDto.class);
+        return mapper.mapStudentToStudentDto(student);
     }
 
     @Override
@@ -77,7 +78,7 @@ public class StudentServiceImpl implements StudentService {
             student.setBirthday(studentDto.getBirthday());
         }
         Student updateStudent = studentRepository.save(student);
-        return mapper.map(updateStudent, StudentDto.class);
+        return mapper.mapStudentToStudentDto(updateStudent);
     }
 
     @Override
