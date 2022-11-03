@@ -1,5 +1,8 @@
 package com.example.springbootcatalog.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +17,8 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Table(name = "teachers")
 public class Teacher {
     @Id
@@ -26,8 +31,7 @@ public class Teacher {
     @Column(nullable = false)
     private LocalDate birthday;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "teacher_subject", joinColumns = @JoinColumn(name = "teacherId", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "subjectId", referencedColumnName = "id"))
-    private Set<Subject> subjectSet;
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "teachers")
+    @ManyToMany(targetEntity = Subject.class, mappedBy = "teachers", cascade =CascadeType.ALL)
+    private Set<Subject> subjects;
 }

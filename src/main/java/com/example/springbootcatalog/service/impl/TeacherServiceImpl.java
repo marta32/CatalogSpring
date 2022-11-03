@@ -2,6 +2,7 @@ package com.example.springbootcatalog.service.impl;
 
 import com.example.springbootcatalog.entity.Teacher;
 import com.example.springbootcatalog.exception.ResourceNotFoundException;
+//import com.example.springbootcatalog.mapper.Mapper;
 import com.example.springbootcatalog.payload.ObjectResponse;
 import com.example.springbootcatalog.repository.TeacherRepository;
 import com.example.springbootcatalog.service.TeacherService;
@@ -30,8 +31,10 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public TeacherDto createTeacher(TeacherDto teacherDto) {
         Teacher teacher = mapper.map(teacherDto, Teacher.class);
-        Teacher newTeacher = teacherRepository.save(teacher);
-        return mapper.map(newTeacher, TeacherDto.class);
+//        Teacher teacher = new Mapper().mapTeacherDtoToTeacher(teacherDto);
+        teacherRepository.save(teacher);
+        return mapper.map(teacher, TeacherDto.class);
+//        return new Mapper().mapTeacherToTeacherDto(teacher);
     }
 
     @Override
@@ -43,7 +46,7 @@ public class TeacherServiceImpl implements TeacherService {
         Page<Teacher> teachers = teacherRepository.findAll(pageable);
         List<Teacher> listOfTeachers = teachers.getContent();
         List<TeacherDto> content = listOfTeachers.stream()
-                .map(teacher -> mapper.map(teacher,TeacherDto.class)).collect(Collectors.toList());
+                .map(teacher -> mapper.map(teacher, TeacherDto.class)).collect(Collectors.toList());
 
         ObjectResponse<TeacherDto> teacherResponse = new ObjectResponse<TeacherDto>();
         teacherResponse.setContent(content);
@@ -59,26 +62,27 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public TeacherDto getTeacherById(Integer id) {
         Teacher teacher = teacherRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Teacher","id",id));
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher", "id", id));
         return mapper.map(teacher, TeacherDto.class);
-
+//        return new Mapper().mapTeacherToTeacherDto(teacher);
     }
 
     @Override
     public TeacherDto updateTeacher(TeacherDto teacherDto, Integer id) {
         Teacher teacher = teacherRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Teacher","id",id));
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher", "id", id));
         teacher.setFirstName(teacherDto.getFirstName());
         teacher.setLastName(teacherDto.getLastName());
         teacher.setBirthday(teacherDto.getBirthday());
         Teacher updateTeacher = teacherRepository.save(teacher);
-        return mapper.map(updateTeacher,TeacherDto.class);
+        return mapper.map(updateTeacher, TeacherDto.class);
+//        return new Mapper().mapTeacherToTeacherDto(updateTeacher);
     }
 
     @Override
     public void deleteTeacherById(Integer id) {
         Teacher teacher = teacherRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Teacher","id",id));
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher", "id", id));
         teacherRepository.delete(teacher);
     }
 }

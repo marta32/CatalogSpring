@@ -14,7 +14,6 @@ public class TeacherDto {
     private String firstName;
     @NotEmpty(message = "Last name should not be empty")
     private String lastName;
-    //@NotEmpty(message = "Date of birth should not be empty")
     private LocalDate birthday;
-    private Set<Subject> subjects;
+    private Set<SubjectDto> subjectsSet;
 }
