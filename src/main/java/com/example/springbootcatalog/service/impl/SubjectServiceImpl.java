@@ -1,11 +1,13 @@
 package com.example.springbootcatalog.service.impl;
 
+import com.example.springbootcatalog.entity.Student;
 import com.example.springbootcatalog.entity.Subject;
 import com.example.springbootcatalog.entity.Teacher;
 import com.example.springbootcatalog.exception.ResourceNotFoundException;
 import com.example.springbootcatalog.mapper.SubjectMapper;
 import com.example.springbootcatalog.mapper.TeacherMapper;
 import com.example.springbootcatalog.payload.ObjectResponse;
+import com.example.springbootcatalog.payload.StudentDto;
 import com.example.springbootcatalog.payload.SubjectDto;
 import com.example.springbootcatalog.payload.TeacherDto;
 import com.example.springbootcatalog.repository.SubjectRepository;
@@ -31,7 +33,7 @@ public class SubjectServiceImpl implements SubjectService {
 
     private SubjectMapper mapper;
 
-    public SubjectServiceImpl(SubjectRepository subjectRepository, TeacherRepository teacherRepository,SubjectMapper mapper) {
+    public SubjectServiceImpl(SubjectRepository subjectRepository, TeacherRepository teacherRepository, SubjectMapper mapper) {
         this.subjectRepository = subjectRepository;
         this.teacherRepository = teacherRepository;
         this.mapper = mapper;
@@ -72,5 +74,11 @@ public class SubjectServiceImpl implements SubjectService {
         subjectResponse.setTotalPages(subjects.getTotalPages());
         subjectResponse.setLast(subjects.isLast());
         return subjectResponse;
+    }
+
+    public SubjectDto getSubjectById(Integer id) {
+        Subject subject = subjectRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Subject", "id", id));
+        return mapper.mapSubjectToSubjectDto(subject);
     }
 }

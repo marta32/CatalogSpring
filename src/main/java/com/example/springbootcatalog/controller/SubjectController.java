@@ -39,5 +39,8 @@ public class SubjectController {
         return subjectService.getAllSubjects(pageNo, pageSize, sortBy, sortDir);
     }
 
-
+    @GetMapping("/{id}")
+    public ResponseEntity<SubjectDto> getSubjectById(@PathVariable(name = "id") Integer id) {
+        return ResponseEntity.ok(subjectService.getSubjectById(id));
+    }
 }
