@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 @Component
 public class SubjectMapper {
 
+
     public SubjectDto mapSubjectToSubjectDto(Subject subject) {
         var subjectDto = SubjectDto.builder()
                 .id(subject.getId())
@@ -31,8 +32,7 @@ public class SubjectMapper {
                             .id(g.getId())
                             .mark(g.getMark())
                             .dateMark(g.getDateMark())
-//                            .studentId(g.getStudent().getId())
-//                            .subjectId(g.getSubject().getId())
+                            .studentId(g.getStudent().getId())
                             .build())
                     .collect(Collectors.toSet()));
         }

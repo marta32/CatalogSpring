@@ -60,7 +60,7 @@ public class SubjectServiceImpl implements SubjectService {
         List<SubjectDto> content = listOfSubjects.stream()
                 .map(subject -> mapper.mapSubjectToSubjectDto(subject)).collect(Collectors.toList());
 
-        ObjectResponse<SubjectDto> subjectResponse = new ObjectResponse<SubjectDto>();
+        ObjectResponse<SubjectDto> subjectResponse = new ObjectResponse<>();
         subjectResponse.setContent(content);
         subjectResponse.setPageNo(subjects.getNumber());
         subjectResponse.setPageSize(subjects.getSize());

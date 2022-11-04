@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -16,11 +17,11 @@ import java.time.LocalDate;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class GradeDto {
     private Integer id;
-    @NotEmpty(message = "Student is missing")
+    @NotNull
     private Integer studentId;
-    @NotEmpty(message = "Subject is missing")
+    @NotNull
     private Integer subjectId;
-    @NotEmpty(message = "Mark is missing")
+    @NotNull
     private Integer mark;
     private LocalDate dateMark;
 }
