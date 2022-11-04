@@ -6,6 +6,6 @@ import com.example.springbootcatalog.payload.UpdateGradeDto;
 public interface GradeService {
 
     GradeDto createGrade(GradeDto gradeDto);
-
     GradeDto updateGrade(UpdateGradeDto gradeDto, Integer id);
+    void deleteGradeById(Integer id);
 }

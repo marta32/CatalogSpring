@@ -37,4 +37,11 @@ public class GradeServiceImpl implements GradeService {
         Grade updateGrade = gradeRepository.save(grade);
         return mapper.mapGradeToGradeDto(updateGrade);
     }
+
+    @Override
+    public void deleteGradeById(Integer id) {
+        Grade grade =gradeRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Grade","id",id));
+        gradeRepository.delete(grade);
+    }
 }

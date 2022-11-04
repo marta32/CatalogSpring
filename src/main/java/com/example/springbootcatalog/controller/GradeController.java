@@ -30,4 +30,11 @@ public class GradeController {
         return new ResponseEntity<>(gradeResponse, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteGrade(@PathVariable(name = "id") Integer id) {
+        gradeService.deleteGradeById(id);
+        return new ResponseEntity<>("Grade entity deleted successfully", HttpStatus.OK);
+    }
+
+
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ public class StudentDto {
     private String firstName;
     @NotEmpty(message = "Last name should not be empty")
     private String lastName;
-    //@NotEmpty(message = "Date of birth should not be empty")
+    @NotNull
     private LocalDate birthday;
     private Set<GradeDto> grades;
 }
