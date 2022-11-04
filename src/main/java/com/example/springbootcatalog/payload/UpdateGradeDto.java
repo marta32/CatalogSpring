@@ -8,17 +8,15 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class GradeDto {
+public class UpdateGradeDto {
+
     private Integer id;
-    @NotNull
     private Integer studentId;
-    @NotNull
     private Integer subjectId;
     @NotNull
     private Integer mark;

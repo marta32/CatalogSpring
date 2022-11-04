@@ -1,7 +1,6 @@
 package com.example.springbootcatalog.mapper;
 
 import com.example.springbootcatalog.entity.Grade;
-import com.example.springbootcatalog.entity.Subject;
 import com.example.springbootcatalog.exception.ResourceNotFoundException;
 import com.example.springbootcatalog.payload.GradeDto;
 import com.example.springbootcatalog.repository.StudentRepository;
@@ -35,6 +34,5 @@ public class GradeMapper {
                 .subject(subjectRepository.findById(gradeDto.getSubjectId()).orElseThrow(()->new ResourceNotFoundException("Subject", "id",gradeDto.getSubjectId())))
                 .build();
     }
-
 
 }
