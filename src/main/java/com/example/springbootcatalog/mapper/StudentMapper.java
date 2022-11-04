@@ -21,8 +21,6 @@ public class StudentMapper {
                             .id(g.getId())
                             .dateMark(g.getDateMark())
                             .mark(g.getMark())
-                            .student(g.getStudent())
-                            .subject(g.getSubject())
                             .build())
                     .collect(Collectors.toSet()));
         }

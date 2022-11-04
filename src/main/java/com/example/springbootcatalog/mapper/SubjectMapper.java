@@ -1,6 +1,7 @@
 package com.example.springbootcatalog.mapper;
 
 import com.example.springbootcatalog.entity.Subject;
+import com.example.springbootcatalog.payload.GradeDto;
 import com.example.springbootcatalog.payload.SubjectDto;
 import com.example.springbootcatalog.payload.TeacherDto;
 import org.springframework.stereotype.Component;
@@ -9,11 +10,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class SubjectMapper {
-    public Subject mapSubjectDtoToSubject(SubjectDto subjectDto) {
-        return Subject.builder()
-                .name(subjectDto.getName())
-                .build();
-    }
 
     public SubjectDto mapSubjectToSubjectDto(Subject subject) {
         var subjectDto = SubjectDto.builder()
@@ -29,6 +25,24 @@ public class SubjectMapper {
                             .build())
                     .collect(Collectors.toSet()));
         }
+        if (subject.getGrades() != null) {
+            subjectDto.grades(subject.getGrades().stream()
+                    .map(g -> GradeDto.builder()
+                            .id(g.getId())
+                            .mark(g.getMark())
+                            .dateMark(g.getDateMark())
+//                            .studentId(g.getStudent().getId())
+//                            .subjectId(g.getSubject().getId())
+                            .build())
+                    .collect(Collectors.toSet()));
+        }
         return subjectDto.build();
     }
+
+    public Subject mapSubjectDtoToSubject(SubjectDto subjectDto) {
+        return Subject.builder()
+                .name(subjectDto.getName())
+                .build();
+    }
+
 }

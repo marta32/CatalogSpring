@@ -7,7 +7,6 @@ import com.example.springbootcatalog.payload.ObjectResponse;
 import com.example.springbootcatalog.payload.StudentDto;
 import com.example.springbootcatalog.repository.StudentRepository;
 import com.example.springbootcatalog.service.StudentService;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -46,7 +45,7 @@ public class StudentServiceImpl implements StudentService {
         List<StudentDto> content = listOfTeachers.stream()
                 .map(student -> mapper.mapStudentToStudentDto(student)).collect(Collectors.toList());
 
-        ObjectResponse<StudentDto> studentResponse = new ObjectResponse<StudentDto>();
+        ObjectResponse<StudentDto> studentResponse = new ObjectResponse<>();
         studentResponse.setContent(content);
         studentResponse.setPageNo(students.getNumber());
         studentResponse.setPageSize(students.getSize());

@@ -9,4 +9,5 @@ public interface SubjectService {
     SubjectDto addTeacherToSubject(Integer subjectId, Integer teacherId);
     ObjectResponse<SubjectDto> getAllSubjects(int pageNo, int pageSize, String sortBy, String sortDir);
     SubjectDto getSubjectById(Integer id);
+    SubjectDto updateSubject(SubjectDto subjectDto, Integer id);
 }

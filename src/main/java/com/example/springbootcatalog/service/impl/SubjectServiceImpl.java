@@ -1,20 +1,14 @@
 package com.example.springbootcatalog.service.impl;
 
-import com.example.springbootcatalog.entity.Student;
 import com.example.springbootcatalog.entity.Subject;
 import com.example.springbootcatalog.entity.Teacher;
 import com.example.springbootcatalog.exception.ResourceNotFoundException;
 import com.example.springbootcatalog.mapper.SubjectMapper;
-import com.example.springbootcatalog.mapper.TeacherMapper;
 import com.example.springbootcatalog.payload.ObjectResponse;
-import com.example.springbootcatalog.payload.StudentDto;
 import com.example.springbootcatalog.payload.SubjectDto;
-import com.example.springbootcatalog.payload.TeacherDto;
 import com.example.springbootcatalog.repository.SubjectRepository;
 import com.example.springbootcatalog.repository.TeacherRepository;
 import com.example.springbootcatalog.service.SubjectService;
-//import com.example.springbootcatalog.mapper.Mapper;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -80,5 +74,14 @@ public class SubjectServiceImpl implements SubjectService {
         Subject subject = subjectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Subject", "id", id));
         return mapper.mapSubjectToSubjectDto(subject);
+    }
+
+    @Override
+    public SubjectDto updateSubject(SubjectDto subjectDto, Integer id) {
+        Subject subject = subjectRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Subject", "id", id));
+            subject.setName(subjectDto.getName());
+        Subject updateSubject = subjectRepository.save(subject);
+        return mapper.mapSubjectToSubjectDto(updateSubject);
     }
 }

@@ -31,10 +31,11 @@ public class SubjectController {
     }
 
     @GetMapping
-    public ObjectResponse<SubjectDto> getAllSubjects(@RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
-                                                     @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
-                                                     @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
-                                                     @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
+    public ObjectResponse<SubjectDto> getAllSubjects(
+            @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
     ) {
         return subjectService.getAllSubjects(pageNo, pageSize, sortBy, sortDir);
     }
@@ -42,5 +43,12 @@ public class SubjectController {
     @GetMapping("/{id}")
     public ResponseEntity<SubjectDto> getSubjectById(@PathVariable(name = "id") Integer id) {
         return ResponseEntity.ok(subjectService.getSubjectById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<SubjectDto> updateSubject(@Valid @RequestBody SubjectDto subjectDto,
+                                                    @PathVariable(name = "id") Integer id) {
+        SubjectDto subjectResponse = subjectService.updateSubject(subjectDto, id);
+        return new ResponseEntity<>(subjectResponse, HttpStatus.OK);
     }
 }
