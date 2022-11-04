@@ -51,4 +51,11 @@ public class SubjectController {
         SubjectDto subjectResponse = subjectService.updateSubject(subjectDto, id);
         return new ResponseEntity<>(subjectResponse, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteSubject(@PathVariable(name = "id") Integer id) {
+        subjectService.deleteSubjectById(id);
+        return new ResponseEntity<>("Subject entity deleted successfully.", HttpStatus.OK);
+    }
+
 }

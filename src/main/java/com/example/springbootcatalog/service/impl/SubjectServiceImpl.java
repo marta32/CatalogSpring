@@ -80,8 +80,15 @@ public class SubjectServiceImpl implements SubjectService {
     public SubjectDto updateSubject(SubjectDto subjectDto, Integer id) {
         Subject subject = subjectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Subject", "id", id));
-            subject.setName(subjectDto.getName());
+        subject.setName(subjectDto.getName());
         Subject updateSubject = subjectRepository.save(subject);
         return mapper.mapSubjectToSubjectDto(updateSubject);
+    }
+
+    @Override
+    public void deleteSubjectById(Integer id) {
+        Subject subject = subjectRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Subject", "id", id));
+        subjectRepository.delete(subject);
     }
 }

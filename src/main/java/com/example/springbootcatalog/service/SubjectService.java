@@ -10,4 +10,5 @@ public interface SubjectService {
     ObjectResponse<SubjectDto> getAllSubjects(int pageNo, int pageSize, String sortBy, String sortDir);
     SubjectDto getSubjectById(Integer id);
     SubjectDto updateSubject(SubjectDto subjectDto, Integer id);
+    void deleteSubjectById(Integer id);
 }
