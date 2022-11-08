@@ -1,6 +1,7 @@
 package com.example.springbootcatalog.controller;
 
 import com.example.springbootcatalog.payload.ObjectResponse;
+import com.example.springbootcatalog.payload.StudentAverageGradeDto;
 import com.example.springbootcatalog.payload.StudentDto;
 import com.example.springbootcatalog.service.StudentService;
 import com.example.springbootcatalog.utils.AppConstants;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/students")
@@ -37,6 +39,20 @@ public class StudentController {
     @GetMapping("/{id}")
     public ResponseEntity<StudentDto> getStudentById(@PathVariable(name = "id") Integer id) {
         return ResponseEntity.ok(studentService.getStudentById(id));
+    }
+
+    @GetMapping("/searchTopStudentsBySubject")
+    public ResponseEntity<List<StudentAverageGradeDto>> searchTopStudentsBySubject(
+            @RequestParam(value = "subject", defaultValue = AppConstants.DEFAULT_ID_SUBJECT, required = true) int subject,
+            @RequestParam(value = "top", defaultValue = AppConstants.DEFAULT_TOP_STUDENT, required = true) int top
+    ) {
+        return ResponseEntity.ok(studentService.searchTopStudentsBySubject(subject, top));
+    }
+    @GetMapping("/searchStudentsLearningProblems")
+    public ResponseEntity<List<StudentAverageGradeDto>> searchStudentsLearningProblems(
+            @RequestParam(value = "subject", defaultValue = AppConstants.DEFAULT_ID_SUBJECT, required = true) int subject
+            ){
+        return ResponseEntity.ok(studentService.searchStudentsLearningProblems(subject));
     }
 
     @PutMapping("/{id}")

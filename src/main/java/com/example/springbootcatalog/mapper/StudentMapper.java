@@ -2,9 +2,12 @@ package com.example.springbootcatalog.mapper;
 
 import com.example.springbootcatalog.entity.Student;
 import com.example.springbootcatalog.payload.GradeDto;
+import com.example.springbootcatalog.payload.StudentAverageGradeDto;
 import com.example.springbootcatalog.payload.StudentDto;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Tuple;
+import java.math.BigDecimal;
 import java.util.stream.Collectors;
 
 @Component
@@ -33,6 +36,14 @@ public class StudentMapper {
                 .birthday(studentDto.getBirthday())
                 .firstName(studentDto.getFirstName())
                 .lastName(studentDto.getLastName())
+                .build();
+    }
+
+    public StudentAverageGradeDto mapObjectToStudentAvgGrade(Tuple tuple){
+        return StudentAverageGradeDto.builder()
+                .firstName(tuple.get(0, String.class))
+                .lastName(tuple.get(1,String.class))
+                .average(tuple.get(2, BigDecimal.class).doubleValue())
                 .build();
     }
 }

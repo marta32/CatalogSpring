@@ -4,6 +4,7 @@ import com.example.springbootcatalog.entity.Student;
 import com.example.springbootcatalog.exception.ResourceNotFoundException;
 import com.example.springbootcatalog.mapper.StudentMapper;
 import com.example.springbootcatalog.payload.ObjectResponse;
+import com.example.springbootcatalog.payload.StudentAverageGradeDto;
 import com.example.springbootcatalog.payload.StudentDto;
 import com.example.springbootcatalog.repository.StudentRepository;
 import com.example.springbootcatalog.service.StudentService;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Tuple;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -87,4 +89,21 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.delete(student);
     }
 
+    @Override
+    public List<StudentAverageGradeDto> searchTopStudentsBySubject(Integer subject, Integer top) {
+        List<Tuple> studentTuples = studentRepository.searchTopStudentsBySubject(subject, top);
+        List<StudentAverageGradeDto> studentAverageGrades = studentTuples.stream()
+                .map(tuple -> mapper.mapObjectToStudentAvgGrade(tuple))
+                .collect(Collectors.toList());
+        return studentAverageGrades;
+    }
+
+    @Override
+    public List<StudentAverageGradeDto> searchStudentsLearningProblems(Integer subject) {
+        List<Tuple> studentTuples = studentRepository.searchStudentsLearningProblems(subject);
+        List<StudentAverageGradeDto> studentAverageGrades = studentTuples.stream()
+                .map(tuple -> mapper.mapObjectToStudentAvgGrade(tuple))
+                .collect(Collectors.toList());
+        return studentAverageGrades;
+    }
 }
