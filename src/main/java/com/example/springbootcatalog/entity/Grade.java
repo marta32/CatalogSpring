@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -17,11 +17,13 @@ public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "studentId",nullable = false)
+    @JoinColumn(name = "studentId", nullable = false)
     private Student student;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subjectId",nullable = false)
+    @JoinColumn(name = "subjectId", nullable = false)
     private Subject subject;
     @Column(nullable = false)
     private Integer mark;

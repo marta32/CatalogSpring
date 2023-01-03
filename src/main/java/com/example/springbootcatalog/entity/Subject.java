@@ -27,7 +27,7 @@ public class Subject {
             inverseJoinColumns = @JoinColumn(name = "teacherId", referencedColumnName = "id"))
     private Set<Teacher> teachers;
 
-    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Grade> grades;
 
 }

@@ -1,6 +1,7 @@
 package com.example.springbootcatalog.controller;
 
 import com.example.springbootcatalog.payload.GradeDto;
+import com.example.springbootcatalog.payload.StudentGradesDto;
 import com.example.springbootcatalog.payload.UpdateGradeDto;
 import com.example.springbootcatalog.service.GradeService;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/grades")
@@ -16,6 +18,10 @@ public class GradeController {
 
     public GradeController(GradeService gradeService) {
         this.gradeService = gradeService;
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<List<StudentGradesDto>> searchAllGradesForAStudent(@PathVariable(name="id") Integer id){
+        return ResponseEntity.ok(gradeService.searchGradesForAStudent(id));
     }
 
     @PostMapping

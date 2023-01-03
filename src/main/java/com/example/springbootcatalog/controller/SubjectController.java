@@ -57,5 +57,4 @@ public class SubjectController {
         subjectService.deleteSubjectById(id);
         return new ResponseEntity<>("Subject entity deleted successfully.", HttpStatus.OK);
     }
-
 }
