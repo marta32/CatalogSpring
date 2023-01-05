@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 @Component
 public class SubjectMapper {
 
-
     public SubjectDto mapSubjectToSubjectDto(Subject subject) {
-        var subjectDto = SubjectDto.builder()
+        SubjectDto.SubjectDtoBuilder subjectDto = SubjectDto.builder()
                 .id(subject.getId())
                 .name(subject.getName());
+
         if (subject.getTeachers() != null) {
             subjectDto.teachers(subject.getTeachers().stream()
                     .map(t -> TeacherDto.builder()
@@ -26,6 +26,7 @@ public class SubjectMapper {
                             .build())
                     .collect(Collectors.toSet()));
         }
+
         if (subject.getGrades() != null) {
             subjectDto.grades(subject.getGrades().stream()
                     .map(g -> GradeDto.builder()
@@ -36,6 +37,7 @@ public class SubjectMapper {
                             .build())
                     .collect(Collectors.toSet()));
         }
+
         return subjectDto.build();
     }
 

@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -18,6 +17,12 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
+    private Integer mark;
+
+    @Column(nullable = false)
+    private LocalDate dateMark;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "studentId", nullable = false)
     private Student student;
@@ -25,8 +30,5 @@ public class Grade {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subjectId", nullable = false)
     private Subject subject;
-    @Column(nullable = false)
-    private Integer mark;
-    @Column(nullable = false)
-    private LocalDate dateMark;
+
 }

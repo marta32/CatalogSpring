@@ -46,13 +46,14 @@ public class StudentController {
             @RequestParam(value = "subject", defaultValue = AppConstants.DEFAULT_ID_SUBJECT, required = true) int subject,
             @RequestParam(value = "top", defaultValue = AppConstants.DEFAULT_TOP_STUDENT, required = true) int top
     ) {
-        return ResponseEntity.ok(studentService.searchTopStudentsBySubject(subject, top));
+        return ResponseEntity.ok(studentService.getTopStudentsBySubject(subject, top));
     }
+
     @GetMapping("/searchStudentsLearningProblems")
     public ResponseEntity<List<StudentAverageGradeDto>> searchStudentsLearningProblems(
             @RequestParam(value = "subject", defaultValue = AppConstants.DEFAULT_ID_SUBJECT, required = true) int subject
-            ){
-        return ResponseEntity.ok(studentService.searchStudentsLearningProblems(subject));
+    ) {
+        return ResponseEntity.ok(studentService.getStudentsLearningProblems(subject));
     }
 
     @PutMapping("/{id}")
@@ -67,4 +68,5 @@ public class StudentController {
         studentService.deleteStudentById(id);
         return new ResponseEntity<>("Student entity deleted successfully.", HttpStatus.OK);
     }
+
 }

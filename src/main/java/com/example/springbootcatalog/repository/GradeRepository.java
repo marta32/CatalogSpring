@@ -15,5 +15,6 @@ public interface GradeRepository extends JpaRepository<Grade, Integer>{
             "WHERE g.student_id = :student " +
             "ORDER BY g.subject_id, g.date_mark", nativeQuery = true
     )
-    List<Tuple> searchAllGradesForAStudent(Integer student);
+    List<Tuple> getGradesByStudent(Integer student);
+
 }

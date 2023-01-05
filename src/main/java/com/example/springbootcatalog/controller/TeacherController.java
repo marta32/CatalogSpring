@@ -51,4 +51,5 @@ public class TeacherController {
         teacherService.deleteTeacherById(id);
         return new ResponseEntity<>("Teacher entity deleted successfully.", HttpStatus.OK);
     }
+
 }

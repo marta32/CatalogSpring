@@ -26,7 +26,8 @@ public class SubjectController {
     }
 
     @PostMapping("/{subjectId}/teachers/{teacherId}")
-    public ResponseEntity<SubjectDto> addTeacherToSubject(@PathVariable(value = "subjectId") Integer subjectId, @PathVariable(value = "teacherId") Integer teacherId) {
+    public ResponseEntity<SubjectDto> addTeacherToSubject(@PathVariable(value = "subjectId") Integer subjectId,
+                                                          @PathVariable(value = "teacherId") Integer teacherId) {
         return new ResponseEntity<>(subjectService.addTeacherToSubject(subjectId, teacherId), HttpStatus.CREATED);
     }
 
@@ -57,4 +58,5 @@ public class SubjectController {
         subjectService.deleteSubjectById(id);
         return new ResponseEntity<>("Subject entity deleted successfully.", HttpStatus.OK);
     }
+
 }

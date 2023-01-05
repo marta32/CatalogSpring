@@ -24,4 +24,5 @@ public class GradeDto {
     private Integer mark;
     @NotNull
     private LocalDate dateMark;
+
 }

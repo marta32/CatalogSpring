@@ -19,9 +19,10 @@ public class GradeController {
     public GradeController(GradeService gradeService) {
         this.gradeService = gradeService;
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<List<StudentGradesDto>> searchAllGradesForAStudent(@PathVariable(name="id") Integer id){
-        return ResponseEntity.ok(gradeService.searchGradesForAStudent(id));
+    public ResponseEntity<List<StudentGradesDto>> searchAllGradesForAStudent(@PathVariable(name = "id") Integer id) {
+        return ResponseEntity.ok(gradeService.getGradesByStudent(id));
     }
 
     @PostMapping
@@ -41,6 +42,5 @@ public class GradeController {
         gradeService.deleteGradeById(id);
         return new ResponseEntity<>("Grade entity deleted successfully", HttpStatus.OK);
     }
-
 
 }

@@ -9,6 +9,7 @@ import com.example.springbootcatalog.payload.SubjectDto;
 import com.example.springbootcatalog.repository.SubjectRepository;
 import com.example.springbootcatalog.repository.TeacherRepository;
 import com.example.springbootcatalog.service.SubjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,18 +21,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class SubjectServiceImpl implements SubjectService {
-
+    @Autowired
     private SubjectRepository subjectRepository;
-
+    @Autowired
     private TeacherRepository teacherRepository;
-
+    @Autowired
     private SubjectMapper mapper;
-
-    public SubjectServiceImpl(SubjectRepository subjectRepository, TeacherRepository teacherRepository, SubjectMapper mapper) {
-        this.subjectRepository = subjectRepository;
-        this.teacherRepository = teacherRepository;
-        this.mapper = mapper;
-    }
 
     @Override
     public SubjectDto createSubject(SubjectDto subjectDto) {
@@ -42,8 +37,10 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public SubjectDto addTeacherToSubject(Integer subjectId, Integer teacherId) {
-        Subject subject = subjectRepository.findById(subjectId).orElseThrow(() -> new ResourceNotFoundException("Subject", "subjectId", subjectId));
-        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(() -> new ResourceNotFoundException("Teacher", "teacherId", teacherId));
+        Subject subject = subjectRepository.findById(subjectId).orElseThrow(()
+                -> new ResourceNotFoundException("Subject", "subjectId", subjectId));
+        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(()
+                -> new ResourceNotFoundException("Teacher", "teacherId", teacherId));
         subject.getTeachers().add(teacher);
         subjectRepository.save(subject);
         return mapper.mapSubjectToSubjectDto(subject);
@@ -51,23 +48,24 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public ObjectResponse<SubjectDto> getAllSubjects(int pageNo, int pageSize, String sortBy, String sortDir) {
-        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
 
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
         Page<Subject> subjects = subjectRepository.findAll(pageable);
         List<Subject> listOfSubjects = subjects.getContent();
-        List<SubjectDto> content = listOfSubjects.stream()
+        List<SubjectDto> newContent = listOfSubjects.stream()
                 .map(subject -> mapper.mapSubjectToSubjectDto(subject)).collect(Collectors.toList());
 
-        ObjectResponse<SubjectDto> subjectResponse = new ObjectResponse<>();
-        subjectResponse.setContent(content);
-        subjectResponse.setPageNo(subjects.getNumber());
-        subjectResponse.setPageSize(subjects.getSize());
-        subjectResponse.setTotalElements(subjects.getTotalElements());
-        subjectResponse.setTotalPages(subjects.getTotalPages());
-        subjectResponse.setLast(subjects.isLast());
-        return subjectResponse;
+        return ObjectResponse.<SubjectDto>builder()
+                .content(newContent)
+                .pageNo(subjects.getNumber())
+                .pageSize(subjects.getSize())
+                .totalElements(subjects.getTotalElements())
+                .totalPages(subjects.getTotalPages())
+                .last(subjects.isLast())
+                .build();
     }
 
     public SubjectDto getSubjectById(Integer id) {
@@ -91,4 +89,5 @@ public class SubjectServiceImpl implements SubjectService {
                 .orElseThrow(() -> new ResourceNotFoundException("Subject", "id", id));
         subjectRepository.delete(subject);
     }
+
 }

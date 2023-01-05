@@ -6,6 +6,7 @@ import com.example.springbootcatalog.mapper.TeacherMapper;
 import com.example.springbootcatalog.payload.ObjectResponse;
 import com.example.springbootcatalog.repository.TeacherRepository;
 import com.example.springbootcatalog.service.TeacherService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,14 +19,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
-
+    @Autowired
     private TeacherRepository teacherRepository;
+    @Autowired
     private TeacherMapper mapper;
-
-    public TeacherServiceImpl(TeacherRepository teacherRepository, TeacherMapper mapper) {
-        this.teacherRepository = teacherRepository;
-        this.mapper = mapper;
-    }
 
     @Override
     public TeacherDto createTeacher(TeacherDto teacherDto) {
@@ -36,24 +33,24 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public ObjectResponse<TeacherDto> getAllTeachers(int pageNo, int pageSize, String sortBy, String sortDir) {
-        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
 
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
         Page<Teacher> teachers = teacherRepository.findAll(pageable);
         List<Teacher> listOfTeachers = teachers.getContent();
-        List<TeacherDto> content = listOfTeachers.stream()
+        List<TeacherDto> newContent = listOfTeachers.stream()
                 .map(teacher -> mapper.mapTeacherToTeacherDto(teacher)).collect(Collectors.toList());
 
-        ObjectResponse<TeacherDto> teacherResponse = new ObjectResponse<TeacherDto>();
-        teacherResponse.setContent(content);
-        teacherResponse.setPageNo(teachers.getNumber());
-        teacherResponse.setPageSize(teachers.getSize());
-        teacherResponse.setTotalElements(teachers.getTotalElements());
-        teacherResponse.setTotalPages(teachers.getTotalPages());
-        teacherResponse.setLast(teachers.isLast());
-
-        return teacherResponse;
+        return  ObjectResponse.<TeacherDto>builder()
+                .content(newContent)
+                .pageNo(teachers.getNumber())
+                .pageSize(teachers.getSize())
+                .totalElements(teachers.getTotalElements())
+                .totalPages(teachers.getTotalPages())
+                .last(teachers.isLast())
+                .build();
     }
 
     @Override
@@ -86,4 +83,5 @@ public class TeacherServiceImpl implements TeacherService {
                 .orElseThrow(() -> new ResourceNotFoundException("Teacher", "id", id));
         teacherRepository.delete(teacher);
     }
+
 }

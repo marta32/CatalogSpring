@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class TeacherMapper {
 
     public TeacherDto mapTeacherToTeacherDto(Teacher teacher) {
-        var teacherDto = TeacherDto.builder()
+        TeacherDto.TeacherDtoBuilder teacherDto = TeacherDto.builder()
                 .id(teacher.getId())
                 .birthday(teacher.getBirthday())
                 .firstName(teacher.getFirstName())
@@ -25,6 +25,7 @@ public class TeacherMapper {
                             .build())
                     .collect(Collectors.toSet()));
         }
+
         return teacherDto.build();
     }
 
@@ -35,4 +36,5 @@ public class TeacherMapper {
                 .lastName(teacherDto.getLastName())
                 .build();
     }
+
 }

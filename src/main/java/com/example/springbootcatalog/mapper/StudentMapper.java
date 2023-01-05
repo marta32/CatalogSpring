@@ -12,15 +12,17 @@ import java.util.stream.Collectors;
 
 @Component
 public class StudentMapper {
+
     public StudentDto mapStudentToStudentDto(Student student) {
-        var studentDto = StudentDto.builder()
+        StudentDto.StudentDtoBuilder studentDto = StudentDto.builder()
                 .id(student.getId())
                 .birthday(student.getBirthday())
                 .firstName(student.getFirstName())
                 .lastName(student.getLastName());
-        if (student.getGrades() != null){
+
+        if (student.getGrades() != null) {
             studentDto.grades(student.getGrades().stream()
-                    .map(g-> GradeDto.builder()
+                    .map(g -> GradeDto.builder()
                             .id(g.getId())
                             .dateMark(g.getDateMark())
                             .mark(g.getMark())
@@ -28,10 +30,11 @@ public class StudentMapper {
                             .build())
                     .collect(Collectors.toSet()));
         }
+
         return studentDto.build();
     }
 
-    public Student mapStudentDtoToStudent(StudentDto studentDto){
+    public Student mapStudentDtoToStudent(StudentDto studentDto) {
         return Student.builder()
                 .birthday(studentDto.getBirthday())
                 .firstName(studentDto.getFirstName())
@@ -39,11 +42,12 @@ public class StudentMapper {
                 .build();
     }
 
-    public StudentAverageGradeDto mapObjectToStudentAvgGrade(Tuple tuple){
+    public StudentAverageGradeDto mapObjectToStudentAvgGrade(Tuple tuple) {
         return StudentAverageGradeDto.builder()
                 .firstName(tuple.get(0, String.class))
-                .lastName(tuple.get(1,String.class))
+                .lastName(tuple.get(1, String.class))
                 .average(tuple.get(2, BigDecimal.class).doubleValue())
                 .build();
     }
+
 }

@@ -17,8 +17,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
             "ORDER BY avg(g.mark) desc " +
             "limit :top", nativeQuery = true
     )
-    List<Tuple> searchTopStudentsBySubject(Integer subject, Integer top);
-
+    List<Tuple> getTopStudentsBySubject(Integer subject, Integer top);
 
     // search students with an averange below 5 in a subject;
     @Query(value = "SELECT s.first_name as firstName, s.last_name as lastName, avg(g.mark) as average FROM grades g " +
@@ -28,8 +27,6 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
             "HAVING AVG(g.mark)<5 " +
             "ORDER BY s.first_name, s.last_name", nativeQuery = true
     )
-    List<Tuple> searchStudentsLearningProblems(Integer subject);
-
-
+    List<Tuple> getStudentsLearningProblems(Integer subject);
 
 }

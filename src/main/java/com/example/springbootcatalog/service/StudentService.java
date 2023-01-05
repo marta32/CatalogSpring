@@ -18,7 +18,8 @@ public interface StudentService {
 
     void deleteStudentById(Integer id);
 
-    List<StudentAverageGradeDto> searchTopStudentsBySubject(Integer subject, Integer top);
+    List<StudentAverageGradeDto> getTopStudentsBySubject(Integer subject, Integer top);
 
-    List<StudentAverageGradeDto> searchStudentsLearningProblems(Integer subject);
+    List<StudentAverageGradeDto> getStudentsLearningProblems(Integer subject);
+
 }

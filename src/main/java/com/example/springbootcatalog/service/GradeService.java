@@ -9,7 +9,11 @@ import java.util.List;
 public interface GradeService {
 
     GradeDto createGrade(GradeDto gradeDto);
+
     GradeDto updateGrade(UpdateGradeDto gradeDto, Integer id);
+
     void deleteGradeById(Integer id);
-    List<StudentGradesDto> searchGradesForAStudent(Integer student);
+
+    List<StudentGradesDto> getGradesByStudent(Integer student);
+
 }

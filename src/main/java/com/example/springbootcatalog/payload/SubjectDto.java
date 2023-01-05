@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.Set;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,4 +17,5 @@ public class SubjectDto {
     private String name;
     private Set<TeacherDto> teachers;
     private Set<GradeDto> grades;
+
 }

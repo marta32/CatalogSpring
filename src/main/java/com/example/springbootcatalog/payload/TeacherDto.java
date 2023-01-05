@@ -6,6 +6,7 @@ import lombok.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.Set;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,4 +20,5 @@ public class TeacherDto {
     private String lastName;
     private LocalDate birthday;
     private Set<SubjectDto> subjectsSet;
+
 }

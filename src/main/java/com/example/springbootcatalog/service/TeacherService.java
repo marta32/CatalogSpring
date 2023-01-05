@@ -14,5 +14,5 @@ public interface TeacherService {
     TeacherDto updateTeacher(TeacherDto teacherDto, Integer id);
 
     void deleteTeacherById(Integer id);
-    
+
 }
