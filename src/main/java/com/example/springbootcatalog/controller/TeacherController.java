@@ -3,6 +3,8 @@ package com.example.springbootcatalog.controller;
 import com.example.springbootcatalog.payload.ObjectResponse;
 import com.example.springbootcatalog.service.TeacherService;
 import com.example.springbootcatalog.utils.AppConstants;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +21,17 @@ public class TeacherController {
         this.teacherService = teacherService;
     }
 
+    @Operation(summary = "Create a teacher")
     @PostMapping
     public ResponseEntity<TeacherDto> createTeacher(@Valid @RequestBody TeacherDto teacherDto) {
         return new ResponseEntity<>(teacherService.createTeacher(teacherDto), HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Get all teachers",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "List of all teachers")
+            }
+    )
     @GetMapping
     public ObjectResponse<TeacherDto> getAllTeachers(
             @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
@@ -34,11 +42,13 @@ public class TeacherController {
         return teacherService.getAllTeachers(pageNo, pageSize, sortBy, sortDir);
     }
 
+    @Operation(summary = "Get a teacher by id")
     @GetMapping("/{id}")
     public ResponseEntity<TeacherDto> getTeacherById(@PathVariable(name = "id") Integer id) {
         return ResponseEntity.ok(teacherService.getTeacherById(id));
     }
 
+    @Operation(summary = "Update a teacher by id")
     @PutMapping("/{id}")
     public ResponseEntity<TeacherDto> updateTeacher(@Valid @RequestBody TeacherDto teacherDto,
                                                     @PathVariable(name = "id") Integer id) {
@@ -46,6 +56,7 @@ public class TeacherController {
         return new ResponseEntity<>(teacherResponse, HttpStatus.OK);
     }
 
+    @Operation(summary = "Delete a teacher by id")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTeacher(@PathVariable(name = "id") Integer id) {
         teacherService.deleteTeacherById(id);
